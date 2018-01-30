@@ -30,13 +30,12 @@ public class BaseLoadingLayout extends FrameLayout {
     private BasePage errorPage;
     private BasePage emptyPage;
     private BasePage networkPage;
-    private BasePage defineLoadingPage;
+    private View defineLoadingPage;
 
     private View contentView;
     private OnReloadListener onReloadListener;
     private boolean isFirstVisible; //是否一开始显示contentview，默认不显示
     private int pageBackground;
-    private static LoadingLayout.Config mConfig = new LoadingLayout.Config();   //配置
 
     public BaseLoadingLayout(@NonNull Context context) {
         super(context);
@@ -72,62 +71,146 @@ public class BaseLoadingLayout extends FrameLayout {
 
     private void build() {
 
-        if (mConfig.loadingView == null) {
-            loadingPage = LayoutInflater.from(mContext).inflate(mConfig.loadingLayoutId, null);
-        } else {
-            loadingPage = mConfig.loadingView;
+        if (loadingPage == null) {
+            loadingPage = LayoutInflater.from(mContext).inflate(R.layout.widget_loading_page, null);
+            loadingPage.setBackgroundColor(pageBackground);
+            this.addView(loadingPage);
         }
+
 //        errorPage = LayoutInflater.from(mContext).inflate(R.layout.widget_error_page, null);
-        errorPage = new DefaultErrorPage(mContext);
+        if (errorPage == null) {
+            errorPage = new DefaultErrorPage(mContext);
+            errorPage.getPageView().setBackgroundColor(pageBackground);
+            this.addView(errorPage.getPageView());
+        }
 //        emptyPage = LayoutInflater.from(mContext).inflate(R.layout.widget_empty_page, null);
-        emptyPage = new DefaultEmptyPage(mContext);
+        if (emptyPage == null) {
+            emptyPage = new DefaultEmptyPage(mContext);
+            emptyPage.getPageView().setBackgroundColor(pageBackground);
+            this.addView(emptyPage.getPageView());
+        }
 //        networkPage = LayoutInflater.from(mContext).inflate(R.layout.widget_nonetwork_page, null);
-        networkPage = new DefaultNoNetWorkPage(mContext);
-        defineLoadingPage = null;
+        if (networkPage == null) {
+            networkPage = new DefaultNoNetWorkPage(mContext);
+            networkPage.getPageView().setBackgroundColor(pageBackground);
+            this.addView(networkPage.getPageView());
+        }
 
-        loadingPage.setBackgroundColor(pageBackground);
-        errorPage.getPageView().setBackgroundColor(pageBackground);
-        emptyPage.getPageView().setBackgroundColor(pageBackground);
-        networkPage.getPageView().setBackgroundColor(pageBackground);
-
-        if (errorPage.getOnReloadView()!=null){
+        if (errorPage.getOnReloadView() != null) {
             errorPage.getOnReloadView().setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (onReloadListener!=null){
-                        onReloadListener.onReload();
+                    if (onReloadListener != null) {
+                        onReloadListener.onReload(view);
                     }
                 }
             });
         }
 
-        if (emptyPage.getOnReloadView()!=null){
+        if (emptyPage.getOnReloadView() != null) {
             emptyPage.getOnReloadView().setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (onReloadListener!=null){
-                        onReloadListener.onReload();
+                    if (onReloadListener != null) {
+                        onReloadListener.onReload(view);
                     }
                 }
             });
         }
 
-        if (networkPage.getOnReloadView()!=null){
+        if (networkPage.getOnReloadView() != null) {
             networkPage.getOnReloadView().setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (onReloadListener!=null){
-                        onReloadListener.onReload();
+                    if (onReloadListener != null) {
+                        onReloadListener.onReload(view);
                     }
                 }
             });
         }
-
-        this.addView(networkPage.getPageView());
-        this.addView(emptyPage.getPageView());
-        this.addView(errorPage.getPageView());
-        this.addView(loadingPage);
     }
+
+    /**
+     * 设置空白页
+     *
+     * @param basePage
+     */
+    public void setEmptyPage(BasePage basePage) {
+
+        if (basePage != null && basePage.getPageView() != null) {
+            basePage.getPageView().setVisibility(emptyPage.getPageView().getVisibility());
+            this.removeView(emptyPage.getPageView());
+            if (emptyPage.getOnReloadView() != null)
+                emptyPage.getOnReloadView().setOnClickListener(null);
+            emptyPage = basePage;
+            this.addView(emptyPage.getPageView());
+            if (emptyPage.getOnReloadView() != null) {
+                emptyPage.getOnReloadView().setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (onReloadListener != null) {
+                            onReloadListener.onReload(emptyPage.getOnReloadView());
+                        }
+                    }
+                });
+            }
+
+        }
+    }
+
+    /**
+     * 设置错误页面
+     *
+     * @param basePage
+     */
+    public void setErrorPage(BasePage basePage) {
+        if (basePage != null && basePage.getPageView() != null) {
+            basePage.getPageView().setVisibility(errorPage.getPageView().getVisibility());
+            this.removeView(errorPage.getPageView());
+            if (errorPage.getOnReloadView() != null)
+                errorPage.getOnReloadView().setOnClickListener(null);
+            errorPage = basePage;
+            this.addView(errorPage.getPageView());
+            if (errorPage.getOnReloadView() != null) {
+                errorPage.getOnReloadView().setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (onReloadListener != null) {
+                            onReloadListener.onReload(view);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    /**
+     * 网络
+     *
+     * @param basePage
+     */
+    public void setNetworkPage(BasePage basePage) {
+        if (basePage != null && basePage.getPageView() != null) {
+            basePage.getPageView().setVisibility(networkPage.getPageView().getVisibility());
+            this.removeView(networkPage.getPageView());
+            if (networkPage.getOnReloadView() != null)
+                networkPage.getOnReloadView().setOnClickListener(null);
+            networkPage = basePage;
+            this.addView(networkPage.getPageView());
+            if (networkPage.getOnReloadView() != null) {
+                networkPage.getOnReloadView().setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (onReloadListener != null) {
+                            onReloadListener.onReload(view);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+
     /**
      * 设置ReloadButton的监听器
      *
@@ -152,7 +235,7 @@ public class BaseLoadingLayout extends FrameLayout {
                 networkPage.getPageView().setVisibility(View.GONE);
                 if (defineLoadingPage != null) {
 
-                    defineLoadingPage.getPageView().setVisibility(View.GONE);
+                    defineLoadingPage.setVisibility(View.GONE);
                 } else {
                     loadingPage.setVisibility(View.GONE);
                 }
@@ -165,7 +248,7 @@ public class BaseLoadingLayout extends FrameLayout {
                 errorPage.getPageView().setVisibility(View.GONE);
                 networkPage.getPageView().setVisibility(View.GONE);
                 if (defineLoadingPage != null) {
-                    defineLoadingPage.getPageView().setVisibility(View.VISIBLE);
+                    defineLoadingPage.setVisibility(View.VISIBLE);
                 } else {
                     loadingPage.setVisibility(View.VISIBLE);
                 }
@@ -178,7 +261,7 @@ public class BaseLoadingLayout extends FrameLayout {
                 errorPage.getPageView().setVisibility(View.GONE);
                 networkPage.getPageView().setVisibility(View.GONE);
                 if (defineLoadingPage != null) {
-                    defineLoadingPage.getPageView().setVisibility(View.GONE);
+                    defineLoadingPage.setVisibility(View.GONE);
                 } else {
                     loadingPage.setVisibility(View.GONE);
                 }
@@ -192,7 +275,7 @@ public class BaseLoadingLayout extends FrameLayout {
                 errorPage.getPageView().setVisibility(View.VISIBLE);
                 networkPage.getPageView().setVisibility(View.GONE);
                 if (defineLoadingPage != null) {
-                    defineLoadingPage.getPageView().setVisibility(View.GONE);
+                    defineLoadingPage.setVisibility(View.GONE);
                 } else {
                     loadingPage.setVisibility(View.GONE);
                 }
@@ -207,7 +290,7 @@ public class BaseLoadingLayout extends FrameLayout {
                 networkPage.getPageView().setVisibility(View.VISIBLE);
                 if (defineLoadingPage != null) {
 
-                    defineLoadingPage.getPageView().setVisibility(View.GONE);
+                    defineLoadingPage.setVisibility(View.GONE);
                 } else {
                     loadingPage.setVisibility(View.GONE);
                 }
@@ -236,37 +319,18 @@ public class BaseLoadingLayout extends FrameLayout {
     }
 
 
-
-    /**
-     * 获取全局配置的class
-     *
-     * @return
-     */
-    public static LoadingLayout.Config getConfig() {
-
-        return mConfig;
-    }
-
-    /**
-     * 全局配置的Class，对所有使用到的地方有效
-     */
-    public static class Config {
-
-
-    }
-
     /**
      * 自定义加载页面，仅对当前所在的Activity有效
      *
      * @param loadingPage
      * @return
      */
-    public BaseLoadingLayout setLoadingPage(BasePage loadingPage) {
+    public BaseLoadingLayout setLoadingPage(View loadingPage) {
 
         defineLoadingPage = loadingPage;
-        this.removeView(loadingPage.getPageView());
-        defineLoadingPage.getPageView().setVisibility(View.GONE);
-        this.addView(loadingPage.getPageView());
+        this.removeView(loadingPage);
+        defineLoadingPage.setVisibility(View.GONE);
+        this.addView(loadingPage);
         return this;
     }
 
