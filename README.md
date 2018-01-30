@@ -7,5 +7,5 @@
 	}
   
   	dependencies {
-	         compile 'com.github.1053452188:MyLoadingLayoutDemo:165114aae5'
+	         compile 'com.github.1053452188:LoadingLayout:master-SNAPSHOT'
 	}
