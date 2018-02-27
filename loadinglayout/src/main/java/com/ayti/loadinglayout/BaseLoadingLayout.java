@@ -33,9 +33,9 @@ public class BaseLoadingLayout extends FrameLayout {
     private BasePage emptyPage;
     private BasePage networkPage;
 
-    private static Class<BasePage> errorPageClass = null;
-    private static Class<BasePage> emptyPageClass = null;
-    private static Class<BasePage> networkPageClass = null;
+    private static Class<? extends BasePage> errorPageClass = null;
+    private static Class<? extends BasePage> emptyPageClass = null;
+    private static Class<? extends BasePage> networkPageClass = null;
 
     private View defineLoadingPage;
 
@@ -46,7 +46,7 @@ public class BaseLoadingLayout extends FrameLayout {
      * @param emptyPage
      * @param networkPage
      */
-    public static void setGlobalPages(Class<BasePage> errorPage,Class<BasePage> emptyPage,Class<BasePage> networkPage){
+    public static void setGlobalPages(Class<? extends BasePage> errorPage,Class<? extends BasePage> emptyPage,Class<? extends BasePage> networkPage){
         errorPageClass = errorPage;
         emptyPageClass = emptyPage;
         networkPageClass = networkPage;
@@ -55,7 +55,7 @@ public class BaseLoadingLayout extends FrameLayout {
     private BasePage createDefaultErrorPage(Context context){
         if (errorPageClass!=null){
             try {
-                Constructor<BasePage> constructor = errorPageClass.getConstructor(Context.class);
+                Constructor<? extends BasePage> constructor = errorPageClass.getConstructor(Context.class);
                 BasePage page = constructor.newInstance(context);
                 return page;
             } catch (Exception e) {
@@ -68,9 +68,9 @@ public class BaseLoadingLayout extends FrameLayout {
     }
 
     private BasePage createDefaultEmptyPage(Context context){
-        if (errorPageClass!=null){
+        if (emptyPageClass!=null){
             try {
-                Constructor<BasePage> constructor = emptyPageClass.getConstructor(Context.class);
+                Constructor<? extends BasePage> constructor = emptyPageClass.getConstructor(Context.class);
                 BasePage page = constructor.newInstance(context);
                 return page;
             } catch (Exception e) {
@@ -83,9 +83,9 @@ public class BaseLoadingLayout extends FrameLayout {
     }
 
     private BasePage createDefaultNetworkPage(Context context){
-        if (errorPageClass!=null){
+        if (networkPageClass!=null){
             try {
-                Constructor<BasePage> constructor = networkPageClass.getConstructor(Context.class);
+                Constructor<? extends BasePage> constructor = networkPageClass.getConstructor(Context.class);
                 BasePage page = constructor.newInstance(context);
                 return page;
             } catch (Exception e) {

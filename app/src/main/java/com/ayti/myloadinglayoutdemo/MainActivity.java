@@ -1,5 +1,6 @@
 package com.ayti.myloadinglayoutdemo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loading = (BaseLoadingLayout) findViewById(R.id.loading);
+
 //        loading.setEmptyPage(new BasePage(this) {
 //            @Override
 //            public void initView(View pageView) {
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 //                return getPageView();
 //            }
 //        });
-        loading.setStatus(BaseLoadingLayout.Empty);
+        loading.setStatus(BaseLoadingLayout.Error);
         loading.setOnReloadListener(new OnReloadListener() {
             @Override
             public void onReload(View view) {
