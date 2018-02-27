@@ -47,19 +47,13 @@ public class BaseLoadingLayout extends FrameLayout {
      * @param networkPage
      */
     public static void setGlobalPages(Class<BasePage> errorPage,Class<BasePage> emptyPage,Class<BasePage> networkPage){
-//        try {
-//            Constructor<BasePage> constructor = BasePage.class.getConstructor(Context.class);
-//            BasePage basePage = constructor.newInstance(context);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         errorPageClass = errorPage;
         emptyPageClass = emptyPage;
         networkPageClass = networkPage;
     }
 
     private BasePage createDefaultErrorPage(Context context){
-        if (errorPageClass==null){
+        if (errorPageClass!=null){
             try {
                 Constructor<BasePage> constructor = errorPageClass.getConstructor(Context.class);
                 BasePage page = constructor.newInstance(context);
@@ -74,7 +68,7 @@ public class BaseLoadingLayout extends FrameLayout {
     }
 
     private BasePage createDefaultEmptyPage(Context context){
-        if (errorPageClass==null){
+        if (errorPageClass!=null){
             try {
                 Constructor<BasePage> constructor = emptyPageClass.getConstructor(Context.class);
                 BasePage page = constructor.newInstance(context);
@@ -89,7 +83,7 @@ public class BaseLoadingLayout extends FrameLayout {
     }
 
     private BasePage createDefaultNetworkPage(Context context){
-        if (errorPageClass==null){
+        if (errorPageClass!=null){
             try {
                 Constructor<BasePage> constructor = networkPageClass.getConstructor(Context.class);
                 BasePage page = constructor.newInstance(context);
