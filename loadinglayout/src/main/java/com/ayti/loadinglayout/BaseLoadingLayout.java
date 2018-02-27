@@ -75,7 +75,7 @@ public class BaseLoadingLayout extends FrameLayout {
                 return page;
             } catch (Exception e) {
                 e.printStackTrace();
-                return new DefaultErrorPage(context);
+                return new DefaultEmptyPage(context);
             }
         }else{
             return new DefaultEmptyPage(context);
@@ -90,7 +90,7 @@ public class BaseLoadingLayout extends FrameLayout {
                 return page;
             } catch (Exception e) {
                 e.printStackTrace();
-                return new DefaultErrorPage(context);
+                return new DefaultNoNetWorkPage(context);
             }
         }else{
             return new DefaultNoNetWorkPage(context);
@@ -347,14 +347,12 @@ public class BaseLoadingLayout extends FrameLayout {
                 break;
 
             case No_Network:
-
                 contentView.setVisibility(View.GONE);
                 loadingPage.setVisibility(View.GONE);
                 emptyPage.getPageView().setVisibility(View.GONE);
                 errorPage.getPageView().setVisibility(View.GONE);
                 networkPage.getPageView().setVisibility(View.VISIBLE);
                 if (defineLoadingPage != null) {
-
                     defineLoadingPage.setVisibility(View.GONE);
                 } else {
                     loadingPage.setVisibility(View.GONE);

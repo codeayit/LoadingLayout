@@ -20,28 +20,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loading = (BaseLoadingLayout) findViewById(R.id.loading);
-
-//        loading.setEmptyPage(new BasePage(this) {
-//            @Override
-//            public void initView(View pageView) {
-//
-//            }
-//
-//            @Override
-//            public int pageViewLayoutId() {
-//                return R.layout.widget_loading_page;
-//            }
-//
-//            @Override
-//            public View getOnReloadView() {
-//                return getPageView();
-//            }
-//        });
         loading.setStatus(BaseLoadingLayout.Error);
         loading.setOnReloadListener(new OnReloadListener() {
             @Override
             public void onReload(View view) {
                 Log.d("xxxxx","Reload");
+                loading.setErrorPage(new ErrorPage(MainActivity.this));
             }
         });
 

@@ -12,6 +12,6 @@ public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        BaseLoadingLayout.setGlobalPages(ErrorPage.class,null,null);
+//        BaseLoadingLayout.setGlobalPages(GlobalErrorPage.class,null,null);
     }
 }
