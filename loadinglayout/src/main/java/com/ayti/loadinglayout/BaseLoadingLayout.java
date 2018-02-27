@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import java.lang.reflect.Constructor;
+
 /**
  * Created by lny on 2018/1/30.
  */
@@ -30,7 +32,76 @@ public class BaseLoadingLayout extends FrameLayout {
     private BasePage errorPage;
     private BasePage emptyPage;
     private BasePage networkPage;
+
+    private static Class<BasePage> errorPageClass = null;
+    private static Class<BasePage> emptyPageClass = null;
+    private static Class<BasePage> networkPageClass = null;
+
     private View defineLoadingPage;
+
+
+    /**
+     * 设置公共的页面
+     * @param errorPage
+     * @param emptyPage
+     * @param networkPage
+     */
+    public static void setGlobalPages(Class<BasePage> errorPage,Class<BasePage> emptyPage,Class<BasePage> networkPage){
+//        try {
+//            Constructor<BasePage> constructor = BasePage.class.getConstructor(Context.class);
+//            BasePage basePage = constructor.newInstance(context);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        errorPageClass = errorPage;
+        emptyPageClass = emptyPage;
+        networkPageClass = networkPage;
+    }
+
+    private BasePage createDefaultErrorPage(Context context){
+        if (errorPageClass==null){
+            try {
+                Constructor<BasePage> constructor = errorPageClass.getConstructor(Context.class);
+                BasePage page = constructor.newInstance(context);
+                return page;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new DefaultErrorPage(context);
+            }
+        }else{
+            return new DefaultErrorPage(context);
+        }
+    }
+
+    private BasePage createDefaultEmptyPage(Context context){
+        if (errorPageClass==null){
+            try {
+                Constructor<BasePage> constructor = emptyPageClass.getConstructor(Context.class);
+                BasePage page = constructor.newInstance(context);
+                return page;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new DefaultErrorPage(context);
+            }
+        }else{
+            return new DefaultEmptyPage(context);
+        }
+    }
+
+    private BasePage createDefaultNetworkPage(Context context){
+        if (errorPageClass==null){
+            try {
+                Constructor<BasePage> constructor = networkPageClass.getConstructor(Context.class);
+                BasePage page = constructor.newInstance(context);
+                return page;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new DefaultErrorPage(context);
+            }
+        }else{
+            return new DefaultNoNetWorkPage(context);
+        }
+    }
 
     private View contentView;
     private OnReloadListener onReloadListener;
@@ -79,19 +150,19 @@ public class BaseLoadingLayout extends FrameLayout {
 
 //        errorPage = LayoutInflater.from(mContext).inflate(R.layout.widget_error_page, null);
         if (errorPage == null) {
-            errorPage = new DefaultErrorPage(mContext);
+            errorPage = createDefaultErrorPage(mContext);
             errorPage.getPageView().setBackgroundColor(pageBackground);
             this.addView(errorPage.getPageView());
         }
 //        emptyPage = LayoutInflater.from(mContext).inflate(R.layout.widget_empty_page, null);
         if (emptyPage == null) {
-            emptyPage = new DefaultEmptyPage(mContext);
+            emptyPage = createDefaultEmptyPage(mContext);
             emptyPage.getPageView().setBackgroundColor(pageBackground);
             this.addView(emptyPage.getPageView());
         }
 //        networkPage = LayoutInflater.from(mContext).inflate(R.layout.widget_nonetwork_page, null);
         if (networkPage == null) {
-            networkPage = new DefaultNoNetWorkPage(mContext);
+            networkPage = createDefaultNetworkPage(mContext);
             networkPage.getPageView().setBackgroundColor(pageBackground);
             this.addView(networkPage.getPageView());
         }
