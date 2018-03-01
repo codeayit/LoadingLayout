@@ -29,5 +29,7 @@ public abstract class BasePage {
     public View getPageView(){
         return pageView;
     }
-    public abstract View getOnReloadView();
+    public View[] getOnReloadViews(){
+     return new View[]{getPageView()};
+    }
 }

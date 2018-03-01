@@ -25,7 +25,7 @@ public class ErrorPage extends BasePage {
     }
 
     @Override
-    public View getOnReloadView() {
-        return getPageView().findViewById(R.id.btn_relaod);
+    public View[] getOnReloadViews() {
+        return new View[]{getPageView().findViewById(R.id.btn_relaod)};
     }
 }

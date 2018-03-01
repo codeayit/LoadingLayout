@@ -17,7 +17,7 @@ import java.lang.reflect.Constructor;
  * Created by lny on 2018/1/30.
  */
 
-public class BaseLoadingLayout extends FrameLayout {
+public class BaseLoadingLayout extends FrameLayout implements View.OnClickListener {
 
     public final static int Success = 0;
     public final static int Empty = 1;
@@ -98,7 +98,7 @@ public class BaseLoadingLayout extends FrameLayout {
     }
 
     private View contentView;
-    private OnReloadListener onReloadListener;
+    private OnPageContentClickListener onPageContentClickListener;
     private boolean isFirstVisible; //是否一开始显示contentview，默认不显示
     private int pageBackground;
 
@@ -161,39 +161,67 @@ public class BaseLoadingLayout extends FrameLayout {
             this.addView(networkPage.getPageView());
         }
 
-        if (errorPage.getOnReloadView() != null) {
-            errorPage.getOnReloadView().setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onReloadListener != null) {
-                        onReloadListener.onReload(view);
-                    }
-                }
-            });
-        }
+//        if (errorPage.getOnReloadView() != null) {
+//            errorPage.getOnReloadView().setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (onReloadListener != null) {
+//                        onReloadListener.onReload(view);
+//                    }
+//                }
+//            });
+//        }
+//
+//        if (emptyPage.getOnReloadView() != null) {
+//            emptyPage.getOnReloadView().setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (onReloadListener != null) {
+//                        onReloadListener.onReload(view);
+//                    }
+//                }
+//            });
+//        }
+//
+//        if (networkPage.getOnReloadView() != null) {
+//            networkPage.getOnReloadView().setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (onReloadListener != null) {
+//                        onReloadListener.onReload(view);
+//                    }
+//                }
+//            });
+//        }
 
-        if (emptyPage.getOnReloadView() != null) {
-            emptyPage.getOnReloadView().setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onReloadListener != null) {
-                        onReloadListener.onReload(view);
-                    }
-                }
-            });
-        }
+        setReloadListeners(errorPage.getOnReloadViews());
+        setReloadListeners(emptyPage.getOnReloadViews());
+        setReloadListeners(networkPage.getOnReloadViews());
+    }
 
-        if (networkPage.getOnReloadView() != null) {
-            networkPage.getOnReloadView().setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onReloadListener != null) {
-                        onReloadListener.onReload(view);
-                    }
-                }
-            });
+    private void setReloadListeners(View[] views){
+        if (views!=null){
+            for (View v:views){
+                v.setOnClickListener(this);
+            }
         }
     }
+
+    private void clearReloadListeners(View[] views){
+        if (views!=null){
+            for (View v:views){
+                v.setOnClickListener(null);
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (onPageContentClickListener !=null){
+            onPageContentClickListener.onClick(view);
+        }
+    }
+
 
     /**
      * 设置空白页
@@ -205,20 +233,22 @@ public class BaseLoadingLayout extends FrameLayout {
         if (basePage != null && basePage.getPageView() != null) {
             basePage.getPageView().setVisibility(emptyPage.getPageView().getVisibility());
             this.removeView(emptyPage.getPageView());
-            if (emptyPage.getOnReloadView() != null)
-                emptyPage.getOnReloadView().setOnClickListener(null);
+//            if (emptyPage.getOnReloadView() != null)
+//                emptyPage.getOnReloadView().setOnClickListener(null);
+            clearReloadListeners(emptyPage.getOnReloadViews());
             emptyPage = basePage;
             this.addView(emptyPage.getPageView());
-            if (emptyPage.getOnReloadView() != null) {
-                emptyPage.getOnReloadView().setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (onReloadListener != null) {
-                            onReloadListener.onReload(emptyPage.getOnReloadView());
-                        }
-                    }
-                });
-            }
+//            if (emptyPage.getOnReloadView() != null) {
+//                emptyPage.getOnReloadView().setOnClickListener(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if (onReloadListener != null) {
+//                            onReloadListener.onReload(emptyPage.getOnReloadView());
+//                        }
+//                    }
+//                });
+//            }
+            setReloadListeners(emptyPage.getOnReloadViews());
 
         }
     }
@@ -232,20 +262,22 @@ public class BaseLoadingLayout extends FrameLayout {
         if (basePage != null && basePage.getPageView() != null) {
             basePage.getPageView().setVisibility(errorPage.getPageView().getVisibility());
             this.removeView(errorPage.getPageView());
-            if (errorPage.getOnReloadView() != null)
-                errorPage.getOnReloadView().setOnClickListener(null);
+//            if (errorPage.getOnReloadView() != null)
+//                errorPage.getOnReloadView().setOnClickListener(null);
+            clearReloadListeners(errorPage.getOnReloadViews());
             errorPage = basePage;
             this.addView(errorPage.getPageView());
-            if (errorPage.getOnReloadView() != null) {
-                errorPage.getOnReloadView().setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (onReloadListener != null) {
-                            onReloadListener.onReload(view);
-                        }
-                    }
-                });
-            }
+//            if (errorPage.getOnReloadView() != null) {
+//                errorPage.getOnReloadView().setOnClickListener(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if (onReloadListener != null) {
+//                            onReloadListener.onReload(view);
+//                        }
+//                    }
+//                });
+//            }
+            setReloadListeners(errorPage.getOnReloadViews());
         }
     }
 
@@ -258,20 +290,22 @@ public class BaseLoadingLayout extends FrameLayout {
         if (basePage != null && basePage.getPageView() != null) {
             basePage.getPageView().setVisibility(networkPage.getPageView().getVisibility());
             this.removeView(networkPage.getPageView());
-            if (networkPage.getOnReloadView() != null)
-                networkPage.getOnReloadView().setOnClickListener(null);
+//            if (networkPage.getOnReloadView() != null)
+//                networkPage.getOnReloadView().setOnClickListener(null);
+            clearReloadListeners(errorPage.getOnReloadViews());
             networkPage = basePage;
             this.addView(networkPage.getPageView());
-            if (networkPage.getOnReloadView() != null) {
-                networkPage.getOnReloadView().setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (onReloadListener != null) {
-                            onReloadListener.onReload(view);
-                        }
-                    }
-                });
-            }
+//            if (networkPage.getOnReloadView() != null) {
+//                networkPage.getOnReloadView().setOnClickListener(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if (onReloadListener != null) {
+//                            onReloadListener.onReload(view);
+//                        }
+//                    }
+//                });
+//            }
+            setReloadListeners(networkPage.getOnReloadViews());
         }
     }
 
@@ -282,9 +316,8 @@ public class BaseLoadingLayout extends FrameLayout {
      * @param listener
      * @return
      */
-    public BaseLoadingLayout setOnReloadListener(OnReloadListener listener) {
-
-        this.onReloadListener = listener;
+    public BaseLoadingLayout setOnPageContentClickListener(OnPageContentClickListener listener) {
+        this.onPageContentClickListener = listener;
         return this;
     }
 
@@ -374,6 +407,8 @@ public class BaseLoadingLayout extends FrameLayout {
 
         return state;
     }
+
+
 
 
     @IntDef({Success, Empty, Error, No_Network, Loading})

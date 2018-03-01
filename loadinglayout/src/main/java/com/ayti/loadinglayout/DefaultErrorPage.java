@@ -48,7 +48,7 @@ public class DefaultErrorPage extends BasePage {
     }
 
     @Override
-    public View getOnReloadView() {
-        return Utils.findViewById(getPageView(), R.id.error_reload_btn);
+    public View[] getOnReloadViews() {
+        return new View[]{Utils.findViewById(getPageView(), R.id.error_reload_btn)};
     }
 }

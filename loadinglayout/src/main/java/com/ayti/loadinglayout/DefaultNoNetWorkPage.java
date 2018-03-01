@@ -38,7 +38,7 @@ public class DefaultNoNetWorkPage extends BasePage {
     }
 
     @Override
-    public View getOnReloadView() {
-        return Utils.findViewById(getPageView(), R.id.no_network_reload_btn);
+    public View[] getOnReloadViews() {
+        return new View[]{Utils.findViewById(getPageView(), R.id.no_network_reload_btn)};
     }
 }

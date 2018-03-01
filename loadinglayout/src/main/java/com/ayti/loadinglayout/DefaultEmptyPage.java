@@ -34,7 +34,7 @@ public class DefaultEmptyPage extends BasePage {
     }
 
     @Override
-    public View getOnReloadView() {
-        return getPageView();
+    public View[] getOnReloadViews() {
+        return new View[]{getPageView()};
     }
 }
