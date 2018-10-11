@@ -33,6 +33,7 @@ public class BaseLoadingLayout extends FrameLayout implements View.OnClickListen
     private BasePage emptyPage;
     private BasePage networkPage;
 
+    private static int laodingLayout = -1;
     private static Class<? extends BasePage> errorPageClass = null;
     private static Class<? extends BasePage> emptyPageClass = null;
     private static Class<? extends BasePage> networkPageClass = null;
@@ -50,6 +51,18 @@ public class BaseLoadingLayout extends FrameLayout implements View.OnClickListen
         errorPageClass = errorPage;
         emptyPageClass = emptyPage;
         networkPageClass = networkPage;
+    }
+
+    /**
+     * 全局loading page
+     * @param resLayout
+     */
+    public static void setGlobalLoadingPage(int resLayout){
+        laodingLayout = resLayout;
+    }
+
+    public View getLoadingPage(){
+        return loadingPage;
     }
 
     private BasePage createDefaultErrorPage(Context context){
@@ -109,9 +122,9 @@ public class BaseLoadingLayout extends FrameLayout implements View.OnClickListen
     public BaseLoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoadingLayout);
-        isFirstVisible = a.getBoolean(R.styleable.LoadingLayout_isFirstVisible, false);
-        pageBackground = a.getColor(R.styleable.LoadingLayout_pageBackground, Utils.getColor(mContext, R.color
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BaseLoadingLayout);
+        isFirstVisible = a.getBoolean(R.styleable.BaseLoadingLayout_isFirstVisible, false);
+        pageBackground = a.getColor(R.styleable.BaseLoadingLayout_pageBackground, Utils.getColor(mContext, R.color
                 .base_loading_background));
         a.recycle();
     }
@@ -136,11 +149,13 @@ public class BaseLoadingLayout extends FrameLayout implements View.OnClickListen
 
     private void build() {
 
-        if (loadingPage == null) {
+        if (laodingLayout == -1) {
             loadingPage = LayoutInflater.from(mContext).inflate(R.layout.widget_loading_page, null);
-            loadingPage.setBackgroundColor(pageBackground);
-            this.addView(loadingPage);
+        }else{
+            loadingPage = LayoutInflater.from(mContext).inflate(laodingLayout, null);
         }
+        loadingPage.setBackgroundColor(pageBackground);
+        this.addView(loadingPage);
 
 //        errorPage = LayoutInflater.from(mContext).inflate(R.layout.widget_error_page, null);
         if (errorPage == null) {
@@ -424,7 +439,15 @@ public class BaseLoadingLayout extends FrameLayout implements View.OnClickListen
      * @return
      */
     public BaseLoadingLayout setLoadingPage(View loadingPage) {
+        defineLoadingPage = loadingPage;
+        this.removeView(loadingPage);
+        defineLoadingPage.setVisibility(View.GONE);
+        this.addView(loadingPage);
+        return this;
+    }
 
+    public BaseLoadingLayout setLoadingPage(int resLayout) {
+        loadingPage = LayoutInflater.from(getContext()).inflate(resLayout,null);
         defineLoadingPage = loadingPage;
         this.removeView(loadingPage);
         defineLoadingPage.setVisibility(View.GONE);

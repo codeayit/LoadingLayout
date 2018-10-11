@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("xxxxx","Reload");
-                loading.setErrorPage(new ErrorPage(MainActivity.this));
+//                loading.setErrorPage(new ErrorPage(MainActivity.this));
+        loading.setStatus(BaseLoadingLayout.Loading);
             }
         });
 

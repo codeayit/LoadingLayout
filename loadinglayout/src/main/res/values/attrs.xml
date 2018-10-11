@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <declare-styleable name="LoadingLayout">
+    <!--<declare-styleable name="LoadingLayout">-->
+
+        <!--<attr name="isFirstVisible" format="boolean"></attr>-->
+        <!--<attr name="pageBackground" format="reference|color"></attr>-->
+
+    <!--</declare-styleable>-->
+
+    <declare-styleable name="BaseLoadingLayout">
 
         <attr name="isFirstVisible" format="boolean"></attr>
         <attr name="pageBackground" format="reference|color"></attr>
