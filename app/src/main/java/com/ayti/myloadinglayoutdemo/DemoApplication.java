@@ -12,7 +12,7 @@ public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        BaseLoadingLayout.setGlobalPages(GlobalErrorPage.class,null,null);
+//        BaseLoadingLayout.setGlobalPages(GlobalErrorPage.class,null,null);
 
         BaseLoadingLayout.setGlobalLoadingPage(R.layout.layout_loading_page_global);
     }

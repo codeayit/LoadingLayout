@@ -154,25 +154,25 @@ public class BaseLoadingLayout extends FrameLayout implements View.OnClickListen
         }else{
             loadingPage = LayoutInflater.from(mContext).inflate(laodingLayout, null);
         }
-        loadingPage.setBackgroundColor(pageBackground);
+//        loadingPage.setBackgroundColor(pageBackground);
         this.addView(loadingPage);
 
 //        errorPage = LayoutInflater.from(mContext).inflate(R.layout.widget_error_page, null);
         if (errorPage == null) {
             errorPage = createDefaultErrorPage(mContext);
-            errorPage.getPageView().setBackgroundColor(pageBackground);
+//            errorPage.getPageView().setBackgroundColor(pageBackground);
             this.addView(errorPage.getPageView());
         }
 //        emptyPage = LayoutInflater.from(mContext).inflate(R.layout.widget_empty_page, null);
         if (emptyPage == null) {
             emptyPage = createDefaultEmptyPage(mContext);
-            emptyPage.getPageView().setBackgroundColor(pageBackground);
+//            emptyPage.getPageView().setBackgroundColor(pageBackground);
             this.addView(emptyPage.getPageView());
         }
 //        networkPage = LayoutInflater.from(mContext).inflate(R.layout.widget_nonetwork_page, null);
         if (networkPage == null) {
             networkPage = createDefaultNetworkPage(mContext);
-            networkPage.getPageView().setBackgroundColor(pageBackground);
+//            networkPage.getPageView().setBackgroundColor(pageBackground);
             this.addView(networkPage.getPageView());
         }
 
