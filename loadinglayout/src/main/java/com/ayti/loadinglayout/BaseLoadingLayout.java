@@ -7,6 +7,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -113,7 +114,7 @@ public class BaseLoadingLayout extends FrameLayout implements View.OnClickListen
     private View contentView;
     private OnPageContentClickListener onPageContentClickListener;
     private boolean isFirstVisible; //是否一开始显示contentview，默认不显示
-    private int pageBackground;
+//    private int pageBackground;
 
     public BaseLoadingLayout(@NonNull Context context) {
         super(context);
@@ -124,8 +125,8 @@ public class BaseLoadingLayout extends FrameLayout implements View.OnClickListen
         this.mContext = context;
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BaseLoadingLayout);
         isFirstVisible = a.getBoolean(R.styleable.BaseLoadingLayout_isFirstVisible, false);
-        pageBackground = a.getColor(R.styleable.BaseLoadingLayout_pageBackground, Utils.getColor(mContext, R.color
-                .base_loading_background));
+//        pageBackground = a.getColor(R.styleable.BaseLoadingLayout_pageBackground, Utils.getColor(mContext, R.color
+//                .base_loading_background));
         a.recycle();
     }
 
@@ -153,6 +154,7 @@ public class BaseLoadingLayout extends FrameLayout implements View.OnClickListen
             loadingPage = LayoutInflater.from(mContext).inflate(R.layout.widget_loading_page, null);
         }else{
             loadingPage = LayoutInflater.from(mContext).inflate(laodingLayout, null);
+            loadingPage.setVisibility(GONE);
         }
 //        loadingPage.setBackgroundColor(pageBackground);
         this.addView(loadingPage);
