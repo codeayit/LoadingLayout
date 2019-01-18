@@ -26,4 +26,5 @@ dependencies {
     })
     implementation 'com.android.support:appcompat-v7:27.+'
     testImplementation 'junit:junit:4.12'
+    api 'com.zhy:percent-support-extends:1.1.1'
 }

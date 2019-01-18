@@ -12,13 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.zhy.android.percent.support.PercentFrameLayout;
+
 import java.lang.reflect.Constructor;
 
 /**
  * Created by lny on 2018/1/30.
  */
 
-public class BaseLoadingLayout extends FrameLayout implements View.OnClickListener {
+public class BaseLoadingLayout extends PercentFrameLayout implements View.OnClickListener {
 
     public final static int Success = 0;
     public final static int Empty = 1;
