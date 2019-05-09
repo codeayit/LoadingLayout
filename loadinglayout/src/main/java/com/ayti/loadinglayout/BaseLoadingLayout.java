@@ -130,6 +130,8 @@ public class BaseLoadingLayout extends PercentFrameLayout implements View.OnClic
 //        pageBackground = a.getColor(R.styleable.BaseLoadingLayout_pageBackground, Utils.getColor(mContext, R.color
 //                .base_loading_background));
         a.recycle();
+        setClickable(true);
+        setFocusable(true);
     }
 
     public BaseLoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
