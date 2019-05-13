@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="#ffffff"
+    android:clickable="true"
+    android:focusable="true"
     android:visibility="gone">
 
     <ImageView

@@ -348,7 +348,7 @@ public class BaseLoadingLayout extends PercentFrameLayout implements View.OnClic
 
         switch (status) {
             case Success:
-                contentView.setVisibility(View.VISIBLE);
+//                contentView.setVisibility(View.VISIBLE);
                 emptyPage.getPageView().setVisibility(View.GONE);
                 errorPage.getPageView().setVisibility(View.GONE);
                 networkPage.getPageView().setVisibility(View.GONE);
@@ -362,7 +362,7 @@ public class BaseLoadingLayout extends PercentFrameLayout implements View.OnClic
 
             case Loading:
 
-                contentView.setVisibility(View.GONE);
+//                contentView.setVisibility(View.GONE);
                 emptyPage.getPageView().setVisibility(View.GONE);
                 errorPage.getPageView().setVisibility(View.GONE);
                 networkPage.getPageView().setVisibility(View.GONE);
@@ -375,7 +375,7 @@ public class BaseLoadingLayout extends PercentFrameLayout implements View.OnClic
 
             case Empty:
 
-                contentView.setVisibility(View.GONE);
+//                contentView.setVisibility(View.GONE);
                 emptyPage.getPageView().setVisibility(View.VISIBLE);
                 errorPage.getPageView().setVisibility(View.GONE);
                 networkPage.getPageView().setVisibility(View.GONE);
@@ -388,7 +388,7 @@ public class BaseLoadingLayout extends PercentFrameLayout implements View.OnClic
 
             case Error:
 
-                contentView.setVisibility(View.GONE);
+//                contentView.setVisibility(View.GONE);
                 loadingPage.setVisibility(View.GONE);
                 emptyPage.getPageView().setVisibility(View.GONE);
                 errorPage.getPageView().setVisibility(View.VISIBLE);
@@ -401,7 +401,7 @@ public class BaseLoadingLayout extends PercentFrameLayout implements View.OnClic
                 break;
 
             case No_Network:
-                contentView.setVisibility(View.GONE);
+//                contentView.setVisibility(View.GONE);
                 loadingPage.setVisibility(View.GONE);
                 emptyPage.getPageView().setVisibility(View.GONE);
                 errorPage.getPageView().setVisibility(View.GONE);
