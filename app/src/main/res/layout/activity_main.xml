@@ -13,8 +13,7 @@
         app:isFirstVisible="true"
         >
         <TextView
-            android:layout_width="0dp"
-            app:layout_widthPercent="50%w"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:text="content"
             android:gravity="center"/>

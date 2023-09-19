@@ -2,6 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LoadingLayout.iml" filepath="$PROJECT_DIR$/.idea/modules/LoadingLayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LoadingLayout.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LoadingLayout.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LoadingLayout.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LoadingLayout.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LoadingLayout.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LoadingLayout.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LoadingLayout.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LoadingLayout.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/loadinglayout/LoadingLayout.loadinglayout.iml" filepath="$PROJECT_DIR$/.idea/modules/loadinglayout/LoadingLayout.loadinglayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/loadinglayout/LoadingLayout.loadinglayout.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/loadinglayout/LoadingLayout.loadinglayout.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/loadinglayout/LoadingLayout.loadinglayout.main.iml" filepath="$PROJECT_DIR$/.idea/modules/loadinglayout/LoadingLayout.loadinglayout.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/loadinglayout/LoadingLayout.loadinglayout.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/loadinglayout/LoadingLayout.loadinglayout.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyLoadingLayoutDemo.iml" filepath="$PROJECT_DIR$/MyLoadingLayoutDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadinglayout/loadinglayout.iml" filepath="$PROJECT_DIR$/loadinglayout/loadinglayout.iml" />
